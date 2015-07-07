@@ -1,13 +1,13 @@
 var express = require('express');
 var app = express();
-app.set('file_serving_dir','/home/balkrishna/workdata/images');
-app.set('server_addr','http://192.168.2.135:3000');
+app.set('file_serving_dir','/home/devnode/uploads/mehendistar');
+app.set('server_addr','http://api.mehendistar.systenics.com');
 var home = require('./routes/home/index');
 var search = require('./routes/search/search');
 var clickImage = require('./routes/clickImage/clickImage');
 var comments = require('./routes/comments/comments');
 var editPic = require('./routes/editPic/editPic');
-var login = require('./routes/login/login');
+var login = require('./routes/login/login')(app);
 var userHome = require('./routes/userHome/userHome');
 var userProfile = require('./routes/userProfile/userProfile');
 var uploadImage = require('./routes/uploadImage/uploadImage')(app);
