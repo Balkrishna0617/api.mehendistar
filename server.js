@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 app.set('file_serving_dir','/home/devnode/uploads/mehendistar');
-app.set('server_addr','http://api.mehendistar.systenics.com');
+app.set('server_addr','http://api.mehndistar.com');
 var home = require('./routes/home/index');
 var search = require('./routes/search/search');
 var clickImage = require('./routes/clickImage/clickImage');
@@ -40,13 +40,13 @@ app.use('/profilePic',profilePic);
 app.use('/profilePicCamera',profilePicCamera);
 
 //--------------------------------- Openshift Ports and IP Address --------------
-var port = 3000;
-var ip = '192.168.2.135';
+var port = 8181;
+var ip = '127.0.0.1';
 app.listen(port,ip,function(err){
 	if (err) {
 		console.log(err);
 	}else{
-		console.log("App is running on  IP address : " + ip + " port : "+ port);
+		console.log("App is running on port : "+ port);
 	}	
 });
 

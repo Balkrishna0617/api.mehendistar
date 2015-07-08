@@ -56,11 +56,11 @@ module.exports = function(app){
       
       var uID = req.body.userID;
       var desc = req.body.desc;
-      // var tagstr = req.body.tagName;
+      var tagstr = req.body.tagName;
       // console.log(tagstr);
-      // var tags = tagstr.split(",");
-      var tags = ["Indian","Common"];
-      console.log("file from client : ", req.files.userPhoto);
+      var tags = tagstr.split(",");
+      //var tags = ["Indian","Common"];
+      //console.log("file from client : ", req.files.userPhoto);
       if(done==true){
         if(!req.files.userPhoto.extension){
             // imgName = imgName + ".jpg";

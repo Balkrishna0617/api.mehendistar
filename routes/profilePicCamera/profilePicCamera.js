@@ -49,14 +49,19 @@ module.exports = function(app){
         if(dpName === '/Profile-Icon.png')
         {
             console.log('Normal Execution');
-            if(!req.files.userPhoto.extension){
+           // if(!req.files.userPhoto.extension){
                 // imgName = imgName + ".jpg";
-            }else{
-              imgName = imgName+"."+req.files.userPhoto.extension;
-            }
-            db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPath : server_add+"/profile/"+fileName }},function (err, docs){
-              res.send("Profile pic updated.");
-            });
+           // }else{
+           //   imgName = imgName+"."+req.files.userPhoto.extension;
+           // }
+           // db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPath : server_add+"/profile/"+fileName }},function (err, docs){
+           //   res.send("Profile pic updated.");
+           // });
+	  //	res.send("Profile pic updated.");
+db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPath : server_add+"/profile/"+filename }},function (err, docs){
+                  res.send("Profile pic updated.");
+                });
+
         }else{
           console.log('Special Case Execution');
           fs.unlink(file_dir+'/profile'+dpName, function(err){
