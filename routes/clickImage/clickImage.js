@@ -51,25 +51,38 @@ router.post('/', function(req, res){
 				imageResult.liked = false;
 			}
 
-		db.collection('Posts').findOne({_id: mongodb.ObjectId(pID)},{ _id : 1, imagePath : 1, description : 1, cntLikes : 1, cntComments : 1 }, function (err, docs){
-			imageResult.postId = docs._id;
-			imageResult.imagePath = docs.imagePath;
-			imageResult.des = docs.description;
-			imageResult.cntLikes = docs.cntLikes;
-			imageResult.cntComments = docs.cntComments;
-			res.send(imageResult);
+		db.collection('Posts').findOne({_id: mongodb.ObjectId(pID)},{ _id : 1,uid : 1, imagePath : 1, description : 1, cntLikes : 1, cntComments : 1, uploadDate : 1 }, function (err, docs){
+			db.collection('Users').findOne({_id : mongodb.ObjectId(docs.uid)},{DPPath : 1, userName : 1}, function (err, user){
+				imageResult.postId = docs._id;
+				imageResult.uid = docs.uid;
+				imageResult.imagePath = docs.imagePath;
+				imageResult.des = docs.description;
+				imageResult.cntLikes = docs.cntLikes;
+				imageResult.cntComments = docs.cntComments;
+				imageResult.uploadDate = docs.uploadDate;
+				imageResult.userName = user.userName;
+				imageResult.DPPath = user.DPPath;
+				res.send(imageResult);
+			});
 		});
 	});	
 	}else{
 		imageResult = {};
-		db.collection('Posts').findOne({_id: mongodb.ObjectId(pID)},{ _id : 1, imagePath : 1, description : 1, cntLikes : 1, cntComments : 1 }, function (err, docs){
-			imageResult.liked = false;
-			imageResult.postId = docs._id;
-			imageResult.imagePath = docs.imagePath;
-			imageResult.des = docs.description;
-			imageResult.cntLikes = docs.cntLikes;
-			imageResult.cntComments = docs.cntComments;
-			res.send(imageResult);
+		db.collection('Posts').findOne({_id: mongodb.ObjectId(pID)},{ _id : 1,uid : 1,  imagePath : 1, description : 1, cntLikes : 1, cntComments : 1, uploadDate : 1 }, function (err, docs){
+		
+			db.collection('Users').findOne({_id : mongodb.ObjectId(docs.uid)},{DPPath : 1, userName : 1}, function (err, user){
+				imageResult.liked = false;
+				imageResult.postId = docs._id;
+				imageResult.uid = docs.uid;
+				imageResult.imagePath = docs.imagePath;
+				imageResult.des = docs.description;
+				imageResult.cntLikes = docs.cntLikes;
+				imageResult.cntComments = docs.cntComments;
+				imageResult.uploadDate = docs.uploadDate;
+				imageResult.userName = user.userName;
+				imageResult.DPPath = user.DPPath;
+				res.send(imageResult);
+			});
 		});	
 
 	}

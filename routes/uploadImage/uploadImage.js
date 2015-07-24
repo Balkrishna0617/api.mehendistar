@@ -5,12 +5,25 @@ module.exports = function(app){
     var mongodb = require('mongodb'); 
     var bodyParser = require('body-parser');
     var multer  = require('multer');                // Module for file upload.
+//    var fs = require('fs');
     var db = require('../../db_conn');              // Database Connection
-
-    router.use(bodyParser.json());
-    router.use(bodyParser.urlencoded({
-        extended: true
-    }));
+    //router.use(bodyParser.json());
+    	router.use(bodyParser.urlencoded({
+        limit: '50mb',
+	extended: true
+    	}));
+    	router.use(bodyParser.json({ 
+    	limit: '50mb'
+	}));
+	router.use(bodyParser.text({ 
+    	limit: '50mb'
+	}));
+	router.use(bodyParser.raw({ 
+  	  limit: '50mb'
+	}));
+//	router.use(bodyParser.urlencoded({
+  //      	extended: true
+//	}));
 
     var done=false;
     var postId;
@@ -18,23 +31,27 @@ module.exports = function(app){
     var file_dir = app.get('file_serving_dir');
     var server_add = app.get('server_addr');
     router.use(multer({ dest: file_dir+'/uploads/',
-     rename: function (fieldname, filename, file) {
-        // console.log("file : ", file);
-        console.log("renaming file.... filename ", filename);
-        console.log("renaming file.... fieldname ", fieldname);
-        // var ext = '.' + filename.split('.').slice(-1)[0];
-        // console.log("ext ", ext);
+//       	limits: {
+//             fields: 10, // max 10 non-multipart fields
+//             parts: 10, // max 10 multipart fields
+//             fileSize: 8 * 1000 * 1000 // files can be at most 8MB each
+//           },
+        rename: function (fieldname, filename, file) {
+//        // console.log("file : ", file);
+//        console.log("renaming file.... filename ", filename);
+//        console.log("renaming file.... fieldname ", fieldname);
+//        // var ext = '.' + filename.split('.').slice(-1)[0];
+//        // console.log("ext ", ext);
           if (filename.indexOf('%')>0) {
             imgName = "gallery"+Date.now()+".jpg";   
             return imgName;
           }else{
             imgName = "gallery"+Date.now();   
             return imgName;
-          }
-              
+          }              
       },
     onFileUploadStart: function (file) {
-      // console.log('file.extension', file.extension);
+//      console.log('file.size', file.size);
       // if(!file.extension){
       //     file.name = file.name + ".jpg";
       //     file.path = file.path + ".jpg";
@@ -52,15 +69,14 @@ module.exports = function(app){
     }));
 
 
-    router.post('/photo',function(req,res){
-      
+    router.post('/photo',function(req,res){      
       var uID = req.body.userID;
       var desc = req.body.desc;
       var tagstr = req.body.tagName;
-      // console.log(tagstr);
-      var tags = tagstr.split(",");
-      //var tags = ["Indian","Common"];
-      //console.log("file from client : ", req.files.userPhoto);
+     	console.log(tagstr);
+     var tags = tagstr.split(",");
+//      var tags = ["Indian","Common"];
+//      //console.log("file from client : ", req.files.userPhoto);
       if(done==true){
         if(!req.files.userPhoto.extension){
             // imgName = imgName + ".jpg";
@@ -76,3 +92,50 @@ module.exports = function(app){
 
   return router;
 }
+
+//router.post('/photo',function(req,res){
+      
+//     var uID = req.body.userID;
+//      var desc = req.body.desc;
+//      var tags = req.body.tagName;
+//      var filenm = req.body.fileName;
+//      var data = req.body.imageData;
+
+      // file upload code via 'fs' module.
+//      var base64Data,
+//      binaryData;
+
+//      base64Data  =   data.replace(/^data:image\/jpeg;base64,/, "");
+//      base64Data  +=  base64Data.replace('+', ' ');
+//      binaryData  =   new Buffer(base64Data, 'base64').toString('binary');
+//	console.log("file data "+ uID + " : " + desc + " : " + tagstr + " : " + filenm + " : " + data);
+//	var filecontent = data.substring(filecontent.indexOf(',')+1);
+      // console.log(filecontent);
+//        binaryData = new Buffer(filecontent, 'base64').toString('binary');
+
+//        var filename = "gallery" + Date.now() + filenm;
+//        var fileURL = file_dir+"/uploads/" + filenm;
+//        fs.writeFile(fileURL, binaryData, "binary", function (err) {
+//          if (err) {
+//            console.log(err); // writes out file without error, but it's not a valid image  
+//         }else{
+      // console.log(tagstr);
+      // var tags = tagstr.split(",");
+      //var tags = ["Indian","Common"];
+      //console.log("file from client : ", req.files.userPhoto);
+      // if(done==true){
+        // if(!req.files.userPhoto.extension){
+            // imgName = imgName + ".jpg";
+        // }else{
+        //   imgName = imgName+"."+req.files.userPhoto.extension;
+        // }
+//        db.collection('Posts').insert({ "uid" : mongodb.ObjectId(uID), "description" : desc, "caption" : filename, "imagePath" : server_add+"/uploads/"+filename, "tags" : tags, "cntLikes" : 0, "cntShares" : 0, "cntComments" : 0, "uploadDate" : new Date() }, function(err, docs){
+//           tags = "";    
+//        res.send("File uploaded.");
+//        });
+//	}       
+//     });
+//    });
+//
+//  return router;
+//}

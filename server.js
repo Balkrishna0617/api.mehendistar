@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
 app.set('file_serving_dir','/home/devnode/uploads/mehendistar');
 app.set('server_addr','http://api.mehndistar.com');
 var home = require('./routes/home/index');
@@ -16,7 +17,18 @@ var profilePic = require('./routes/profilePic/profilePic')(app);
 var profilePicCamera = require('./routes/profilePicCamera/profilePicCamera')(app);
 
 //--------------------------------- Middlewares ---------------------------------
-
+app.use(bodyParser.json({ 
+    limit: '50mb'
+}));
+app.use(bodyParser.text({ 
+    limit: '50mb'
+}));
+app.use(bodyParser.raw({ 
+    limit: '50mb'
+}));
+app.use(bodyParser.urlencoded({
+        extended: true
+}));
 var file_dir = app.get('file_serving_dir');
 app.use(express.static(file_dir));												//static file directory
 app.use(function(req, res, next) {												// CORS Issue Fix

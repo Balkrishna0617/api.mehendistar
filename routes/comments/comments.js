@@ -15,7 +15,11 @@ router.post('/', function (req, res){
 	var pID = req.body.postID;
 	console.log("Recieved Post ID : " + req.body.postID);
 	db.collection('Comments').find({ pid : mongodb.ObjectId(pID)},{ "_id" : 1, "uid" : 1, "comment" : 1, "commentDate" : 1 }).toArray( function ( err, docs){
-		var counter = 0;
+	if(docs.length == 0){
+		res.header("Content-Type:","application/json");
+                res.send({"msg" : "no comments"});
+	}	
+	var counter = 0;
         docs.forEach( function (doc){
                 db.collection('Users').findOne({ "_id" : mongodb.ObjectId(doc.uid)},{ _id : 1, userName : 1, DPPath : 1 }, function (err, user){
                     counter++;
