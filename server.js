@@ -1,8 +1,13 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-app.set('file_serving_dir','/home/devnode/uploads/mehendistar');
-app.set('server_addr','http://api.mehndistar.com');
+var config = require('./config/config.json');
+// app.set('file_serving_dir','/home/devnode/uploads/mehendistar');
+// app.set('server_addr','http://api.mehndistar.com');
+
+// console.log("file_serving_dir", config.file_serving_dir);
+
+
 var home = require('./routes/home/index');
 var search = require('./routes/search/search');
 var clickImage = require('./routes/clickImage/clickImage');
@@ -15,7 +20,7 @@ var uploadImage = require('./routes/uploadImage/uploadImage')(app);
 var uploadImageCamera = require('./routes/uploadImageCamera/uploadImageCamera')(app);
 var profilePic = require('./routes/profilePic/profilePic')(app);
 var profilePicCamera = require('./routes/profilePicCamera/profilePicCamera')(app);
-
+var sendMail = require('./routes/sendMail/sendMail')(app);
 //--------------------------------- Middlewares ---------------------------------
 app.use(bodyParser.json({ 
     limit: '50mb'
@@ -29,8 +34,8 @@ app.use(bodyParser.raw({
 app.use(bodyParser.urlencoded({
         extended: true
 }));
-var file_dir = app.get('file_serving_dir');
-app.use(express.static(file_dir));												//static file directory
+// var file_dir = app.get('file_serving_dir');
+// app.use(express.static(file_dir));												//static file directory
 app.use(function(req, res, next) {												// CORS Issue Fix
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -50,11 +55,12 @@ app.use('/api',uploadImage);
 app.use('/apiCamera',uploadImageCamera);
 app.use('/profilePic',profilePic);
 app.use('/profilePicCamera',profilePicCamera);
+app.use('/send',sendMail);
 
-//--------------------------------- Openshift Ports and IP Address --------------
+//--------------------------------- Ports and IP Address --------------
 var port = 8181;
-var ip = '127.0.0.1';
-app.listen(port,ip,function(err){
+// var ip = '127.0.0.1';
+app.listen(port,function(err){
 	if (err) {
 		console.log(err);
 	}else{

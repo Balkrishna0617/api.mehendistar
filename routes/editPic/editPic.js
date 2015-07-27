@@ -19,9 +19,9 @@ router.post('/', function(req, res){													// post request handler on '/se
 
 router.post('/update', function(req, res){													// post request handler on '/search' route 
 	var pID = req.body.postID;															// getting the tagName to filter the response
-	console.log("pid" , pID);
-	console.log("description" , req.body.description);
-	console.log("tags" , req.body.tags);
+	// console.log("pid" , pID);
+	// console.log("description" , req.body.description);
+	// console.log("tags" , req.body.tags);
 	db.collection('Posts').update({ _id : mongodb.ObjectId(pID)},{ $set : { description : req.body.description, tags : req.body.tags }}, function(err, docs){ // queries Posts table to get the most popular post from post
 		res.send("success");
 	});

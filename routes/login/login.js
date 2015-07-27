@@ -18,11 +18,11 @@ module.exports = function(app){
 		var emailID = req.body.email;
 		var gen = req.body.gender;
 		var facebookId = req.body.fbId;
-		console.log("user name : ", userNm);
-		console.log("email address : ", emailID);
+		// console.log("user name : ", userNm);
+		// console.log("email address : ", emailID);
 		db.collection('Users').find({ email : emailID }).toArray( function (err, docs){
 			if(docs[0]){
-				console.log(docs[0]);
+				// console.log(docs[0]);
 				res.header("Content-Type:","application/json");
 				res.send(docs[0]);	
 			}else{

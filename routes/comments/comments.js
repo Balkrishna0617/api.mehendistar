@@ -13,11 +13,11 @@ router.post('/', function (req, res){
 	var result = [];
 
 	var pID = req.body.postID;
-	console.log("Recieved Post ID : " + req.body.postID);
+	// console.log("Recieved Post ID : " + req.body.postID);
 	db.collection('Comments').find({ pid : mongodb.ObjectId(pID)},{ "_id" : 1, "uid" : 1, "comment" : 1, "commentDate" : 1 }).toArray( function ( err, docs){
 	if(docs.length == 0){
 		res.header("Content-Type:","application/json");
-                res.send({"msg" : "no comments"});
+        res.send({"msg" : "no comments"});
 	}	
 	var counter = 0;
         docs.forEach( function (doc){

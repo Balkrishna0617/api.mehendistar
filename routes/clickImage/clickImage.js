@@ -24,14 +24,14 @@ function isLiked(uID,pID){
 function incrementLikes(pID){
 	db.collection('Posts').update({ _id : mongodb.ObjectId(pID) }, { $inc : { cntLikes : 1 }}, function(err, docs){
 		if(docs.length){
-		console.log("like count incremented...");
+		// console.log("like count incremented...");
 		}
 	});
 }
 function decrementLikes(pID){
 	db.collection('Posts').update({ _id : mongodb.ObjectId(pID) }, { $inc : { cntLikes : -1 }}, function(err, docs){
 		if(docs.length){
-		console.log("like count decremented...");
+		// console.log("like count decremented...");
 		}
 	});
 }
@@ -40,8 +40,8 @@ function decrementLikes(pID){
 router.post('/', function(req, res){
 	var pID = req.body.postID;
 	var uID = req.body.userID;
-	console.log("postID is : ", pID);
-	console.log("userID is : ", uID);
+	// console.log("postID is : ", pID);
+	// console.log("userID is : ", uID);
 	if(uID){
 		imageResult = {};
 		db.collection('Likes').find({ uid : mongodb.ObjectId(uID), pid : mongodb.ObjectId(pID)}).toArray( function (err, docs){

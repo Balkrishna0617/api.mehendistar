@@ -36,16 +36,16 @@ module.exports = function(app){
         if (err) {
           console.log(err); // writes out file without error, but it's not a valid image  
         }else{
-          console.log("outside query");
+          // console.log("outside query");
           db.collection('Posts').insert({ "uid" : mongodb.ObjectId(uID), "description" : desc, "caption" : filename, "imagePath" : server_add+"/uploads/"+filename, "tags" : tags, "cntLikes" : 0, "cntShares" : 0, "cntComments" : 0, "uploadDate" : new Date() }, function (err, docs){
               tags = ""; 
               if(err){
                 console.log(err);
               }
-              console.log("inside query");   
+              // console.log("inside query");   
           });
           res.send("File uploaded.");
-          console.log("File uploaded."); 
+          // console.log("File uploaded."); 
         }      
     });
   });

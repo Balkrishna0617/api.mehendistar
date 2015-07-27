@@ -28,10 +28,10 @@ module.exports = function(app){
         }
   	},
   	onFileUploadStart: function (file) {
-  	  console.log(file.originalname + ' is starting ...');
+  	  // console.log(file.originalname + ' is starting ...');
   	},
   	onFileUploadComplete: function (file) {
-  	  console.log(file.fieldname + ' uploaded to  ' + file.path);
+  	  // console.log(file.fieldname + ' uploaded to  ' + file.path);
   	  done=true;
   	}
   }));
@@ -42,11 +42,11 @@ module.exports = function(app){
       db.collection('Users').findOne({ "_id" : mongodb.ObjectId(uID)},{ DPPath : 1}, function (err, user){
         var dpString = user.DPPath;
         var dpName = dpString.substring(dpString.lastIndexOf('/'));
-        console.log("dpName : ", dpName);
+        // console.log("dpName : ", dpName);
         
         if(dpName === '/Profile-Icon.png')
         {
-            console.log('Normal Execution');
+            // console.log('Normal Execution');
             // imgName = imgName+"."+req.files.userPhoto.extension;
             if(!req.files.userPhoto.extension){
                 // imgName = imgName + ".jpg";
@@ -57,7 +57,7 @@ module.exports = function(app){
               res.send("Profile pic updated.");
             });
         }else{
-          console.log('Special Case Execution');
+          // console.log('Special Case Execution');
           fs.unlink(file_dir+'/profile'+dpName, function (err){
             if(!req.files.userPhoto.extension){
                 // imgName = imgName + ".jpg";
