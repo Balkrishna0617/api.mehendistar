@@ -2,10 +2,10 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var config = require('./config/config.json');
-// app.set('file_serving_dir','/home/devnode/uploads/mehendistar');
-// app.set('server_addr','http://api.mehndistar.com');
+app.set('file_serving_dir','/home/devnode/uploads/mehendistar');
+app.set('server_addr','http://api.mehndistar.com');
 
-// console.log("file_serving_dir", config.file_serving_dir);
+//console.log("file_serving_dir", config.file_serving_dir);
 
 
 var home = require('./routes/home/index');
@@ -34,8 +34,8 @@ app.use(bodyParser.raw({
 app.use(bodyParser.urlencoded({
         extended: true
 }));
-// var file_dir = app.get('file_serving_dir');
-// app.use(express.static(file_dir));												//static file directory
+var file_dir = app.get('file_serving_dir');
+app.use(express.static(file_dir));												//static file directory
 app.use(function(req, res, next) {												// CORS Issue Fix
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

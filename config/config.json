@@ -1,9 +1,9 @@
 {
 	"file_serving_dir" : "/home/devnode/uploads/mehendistar",
 	"server_addr" : "http://api.mehndistar.com",
-	"sender_email_host" : "",
-	"sender_email_port" : "",
-	"sender_email_add" : "",
-	"sender_email_pass" : "",
-	"reciever_email_add" : ""
+	"sender_email_host" : "smtp.gmail.com",
+	"sender_email_port" : "587",
+	"sender_email_add" : "no-reply@systenics.com",
+	"sender_email_pass" : "JupiteR123@",
+	"reciever_email_add" : "info@mehndistar.com"
 }

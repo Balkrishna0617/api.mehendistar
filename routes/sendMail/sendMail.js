@@ -16,33 +16,36 @@ module.exports = function(app){
 
 	var senderEmail = ""; var pwd = "";
 
+	//var smtpTransport = nodemailer.createTransport("SMTP",{
+	//host: "smtp.gmail.com",
+	//port : "587",
+	//auth: {
+	//user: senderEmail,
+	//pass: pwd
+	//}
+	//});
 	var smtpTransport = nodemailer.createTransport("SMTP",{
-	host: "smtp.gmail.com",
-	port : "587",
-	auth: {
-	user: senderEmail,
-	pass: pwd
-	}
+		host: config.sender_email_host,
+		port : config.sender_email_port,
+		auth: {
+			user: config.sender_email_add,
+			pass: config.sender_email_pass
+		}
 	});
-	// var smtpTransport = nodemailer.createTransport("SMTP",{
-	// host: config.sender_email_host,
-	// port : config.sender_email_port,
-	// auth: {
-	// user: config.sender_email_add,
-	// pass: config.sender_email_pass
-	// }
-	// });
 	// console.log(config.sender_email_host);
 	router.post('/',function(req,res){
-		var body = req.body;
+		var name = req.body.name;
+		
+		var Subject = "Feedback submitted by - " + name;
+		var emailBody = "<b>Name:</b> " + req.body.name + ",<br/><b>Email:</b> " + req.body.email +",<br><b>Comment:</b> "+ req.body.comments;
 		var mailOptions={
-		to : req.body.to,
-		subject : req.body.subject,
-		text : req.body.text
+		to : config.reciever_email_add,
+		subject : Subject,
+		html : emailBody
 		}
 		// console.log(mailOptions);
 		smtpTransport.sendMail(mailOptions, function(error, response){
-			// console.log(response);
+		console.log(response);
 		if(error){
 		// console.log(error);
 		// res.end("error");
