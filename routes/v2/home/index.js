@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongodb = require('mongodb');               // DATABASE CONNECTIVITY MODULE
 var bodyParser = require('body-parser');        // REQUEST BODY READER MODULE
-var db = require('../../db_conn');              // Database Connection
+var db = require('../../../db_conn');           // Database Connection
 
 //--------------------------------- Express Middleware ------------------------
 // router.use(bodyParser.json());

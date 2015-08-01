@@ -4,7 +4,7 @@ module.exports = function(app){
   var router = express.Router(); 
   var bodyParser = require('body-parser');
   var nodemailer = require("nodemailer");
-  var config = require('../../config/config.json');
+  var config = require('../../../config/config.json');
 
 	// cofiguring body-parser
 	router.use(bodyParser.json({	// setting json limit 	
@@ -47,7 +47,7 @@ module.exports = function(app){
 		smtpTransport.sendMail(mailOptions, function(error, response){
 		console.log(response);
 		if(error){
-		console.log(error);
+		// console.log(error);
 		// res.end("error");
 		res.header("Content-Type:","application/json");
 		res.send({"success" : "false"});
@@ -61,4 +61,3 @@ module.exports = function(app){
 
   return router;
 }
-	

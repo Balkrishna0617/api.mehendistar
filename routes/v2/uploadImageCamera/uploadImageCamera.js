@@ -6,7 +6,7 @@ module.exports = function(app){
   var bodyParser = require('body-parser');
   var fs = require('fs');
   var lwip = require('lwip');                     // module for file compression
-  var db = require('../../db_conn');              // Database Connection
+  var db = require('../../../db_conn');              // Database Connection
 
   // router.use(bodyParser.json());
   // router.use(bodyParser.urlencoded({

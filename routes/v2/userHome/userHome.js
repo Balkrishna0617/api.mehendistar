@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongodb = require('mongodb');
 var bodyParser = require('body-parser');
-var db = require('../../db_conn');              // Database Connection
+var db = require('../../../db_conn');              // Database Connection
  
 // router.use(bodyParser.json());
 // router.use(bodyParser.urlencoded({
@@ -43,7 +43,7 @@ router.post('/post', function(req, res){
 				var DPpath = user[0].DPPath;
 				var DPpathLow = user[0].DPPathLow;
 				var DPpathHigh = user[0].DPPathHigh;
-					var counter = 0;
+				var counter = 0;
 					// console.log("printing result length", result.length);
 					result.forEach(function(ress){
 							db.collection('Likes').find({"uid" : mongodb.ObjectId(uID), "pid": mongodb.ObjectId(ress._id)}).toArray( function(err, likes){

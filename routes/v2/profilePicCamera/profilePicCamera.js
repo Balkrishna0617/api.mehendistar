@@ -6,7 +6,7 @@ module.exports = function(app){
   var bodyParser = require('body-parser');
   var fs = require('fs');
   var lwip = require('lwip');                     // module for file compression
-  var db = require('../../db_conn');              // Database Connection
+  var db = require('../../../db_conn');              // Database Connection
 
   // router.use(bodyParser.json());
   // router.use(bodyParser.urlencoded({
@@ -33,7 +33,7 @@ router.use(bodyParser.raw({
   router.post('/updateCamera',function (req,res){
   	var uID = req.body.userID;  
     var data = req.body.imageData;
-
+    // console.log("inside updateCamera");
   // file upload code via 'fs' module.
     var base64Data,
     binaryData;
@@ -76,7 +76,7 @@ router.use(bodyParser.raw({
               if (err) {
                 res.send("Something went wrong :(");
               }else{
-                db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPathHigh : server_add+"/profile/"+filename, DPPath : server_add+"/profile/"+filename, DPPathLow : server_add+"/profile_low/"+filename }},function (err, docs){
+                db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPathHigh : server_add+"/profile/"+filename, DPPathLow : server_add+"/profile_low/"+filename, DPPath : server_add+"/profile/"+filename }},function (err, docs){
                   fs.unlink(file_dir+'/profile_low'+dpName, function (err){
                     db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPathLow : server_add+"/profile_low/"+filename }},function (err, docs){
                       res.send("Profile pic updated.");
