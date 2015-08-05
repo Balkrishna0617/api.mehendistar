@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var logs = require('./logs/apiMehndiStar')();
 var config = require('./config/config.json');
 app.set('file_serving_dir',config.file_serving_dir_local);
 app.set('server_addr',config.server_addr_local);
@@ -93,9 +94,12 @@ var port = 8181;
 // var ip = '127.0.0.1';
 app.listen(port,function(err){
 	if (err) {
-		console.log(err);
+    
+		// console.log(err);
 	}else{
-		console.log("App is running on port : "+ port);
+		
+    // console.log(logs.toString());
+    console.log("App is running on port : "+ port);
 	}	
 });
 

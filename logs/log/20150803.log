@@ -1,0 +1,32 @@
+2015-08-03 @ 3:55 pm - Error: This is custom Error
+    at Server.<anonymous> (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/server.js:100:17)
+    at Server.g (events.js:180:16)
+    at Server.emit (events.js:92:17)
+    at net.js:1056:10
+    at process._tickDomainCallback (node.js:492:13)
+    at Function.Module.runMain (module.js:499:11)
+    at startup (node.js:119:16)
+    at node.js:935:3
+=========================================
+2015-08-03 @ 4:10 pm - Error: This is custom Error
+    at Server.<anonymous> (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/server.js:100:17)
+    at Server.g (events.js:180:16)
+    at Server.emit (events.js:92:17)
+    at net.js:1056:10
+    at process._tickDomainCallback (node.js:492:13)
+    at Function.Module.runMain (module.js:499:11)
+    at startup (node.js:119:16)
+    at node.js:935:3
+=========================================
+2015-08-03 @ 4:11 pm - Error: This is custom Error
+    at router.post.result (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/routes/home/index.js:28:19)
+    at Layer.handle [as handle_request] (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/express/lib/router/layer.js:82:5)
+    at next (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/express/lib/router/route.js:110:13)
+    at Route.dispatch (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/express/lib/router/route.js:91:3)
+    at Layer.handle [as handle_request] (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/express/lib/router/layer.js:82:5)
+    at /home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/express/lib/router/index.js:267:22
+    at Function.proto.process_params (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/express/lib/router/index.js:321:12)
+    at next (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/express/lib/router/index.js:261:10)
+    at rawParser (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/body-parser/lib/types/raw.js:55:44)
+    at Layer.handle [as handle_request] (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/express/lib/router/layer.js:82:5)
+=========================================

@@ -105,6 +105,7 @@ var Imagemin = require('imagemin');
 var fs = require('fs');
 var lwip = require('lwip');                     // module for file compression
 var db = require('../../db_conn');              // Database Connection
+var logs = require('../../logs/apiMehndiStar')();
 
 router.use(bodyParser.urlencoded({
     limit: '50mb',
@@ -157,6 +158,13 @@ onFileUploadComplete: function (file) {
       });
   });
   done=true;
+},
+onError: function(err, next) {
+    if(err){
+        logs.logErrorFileUpload(err);
+    }
+    done = false;
+    next();
 }
 }));
 
@@ -177,9 +185,16 @@ router.post('/photo',function(req,res){
       imgName = imgName+"."+req.files.userPhoto.extension;
     }
     db.collection('Posts').insert({ "uid" : mongodb.ObjectId(uID), "description" : desc, "caption" : req.files.userPhoto.name, "imagePath" : server_add+"/uploads/"+imgName,"imagePathLow" : server_add+"/uploads_low/"+imgName, "imagePathHigh" : server_add+"/uploads/"+imgName, "tags" : tags, "cntLikes" : 0, "cntShares" : 0, "cntComments" : 0, "uploadDate" : new Date() }, function(err, docs){
-         tags = "";    
+        if(err){
+            logs.logError(err, req, res);
+        }
+        if(docs){
+          tags = ""; 
+        }             
     });
     res.send("File uploaded.");
+  }else{
+    res.send('Something went wrong, Found Error in File upload');
   }
 });
 

@@ -1,0 +1,24 @@
+2015-08-04 @ 12:18 pm - Error: This is custom message
+    at /home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/routes/home/index.js:34:23
+    at handleCallback (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/lib/utils.js:95:12)
+    at /home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/lib/collection.js:1064:5
+    at handleCallback (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/lib/utils.js:95:12)
+    at /home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/lib/cursor.js:513:5
+    at handleCallback (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/node_modules/mongodb-core/lib/cursor.js:249:5)
+    at nextFunction (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/node_modules/mongodb-core/lib/cursor.js:639:5)
+    at /home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/node_modules/mongodb-core/lib/cursor.js:564:7
+    at queryCallback (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/node_modules/mongodb-core/lib/cursor.js:225:5)
+    at Callbacks.emit (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:95:3)
+==================================================================
+2015-08-04 @ 12:19 pm - Error: This is custom message
+    at /home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/routes/home/index.js:34:23
+    at handleCallback (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/lib/utils.js:95:12)
+    at /home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/lib/collection.js:1064:5
+    at handleCallback (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/lib/utils.js:95:12)
+    at /home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/lib/cursor.js:513:5
+    at handleCallback (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/node_modules/mongodb-core/lib/cursor.js:249:5)
+    at nextFunction (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/node_modules/mongodb-core/lib/cursor.js:639:5)
+    at /home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/node_modules/mongodb-core/lib/cursor.js:564:7
+    at queryCallback (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/node_modules/mongodb-core/lib/cursor.js:225:5)
+    at Callbacks.emit (/home/balkrishna/workdata/CURRENT  WORKING COPY/api.mehendistar/node_modules/mongodb/node_modules/mongodb-core/lib/topologies/server.js:95:3)
+==================================================================

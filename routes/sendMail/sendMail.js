@@ -5,7 +5,7 @@ module.exports = function(app){
   var bodyParser = require('body-parser');
   var nodemailer = require("nodemailer");
   var config = require('../../config/config.json');
-
+  var logs = require('../../logs/apiMehndiStar')();
 	// cofiguring body-parser
 	router.use(bodyParser.json({	// setting json limit 	
 	    limit: 1024 * 10000
@@ -47,7 +47,7 @@ module.exports = function(app){
 		smtpTransport.sendMail(mailOptions, function(error, response){
 		console.log(response);
 		if(error){
-		console.log(error);
+		logs.logErrorFileUpload(err);
 		// res.end("error");
 		res.header("Content-Type:","application/json");
 		res.send({"success" : "false"});

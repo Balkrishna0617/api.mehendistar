@@ -7,7 +7,7 @@ module.exports = function(app){
   var fs = require('fs');
   var lwip = require('lwip');                     // module for file compression
   var db = require('../../db_conn');              // Database Connection
-
+  var logs = require('../../logs/apiMehndiStar')();
   // router.use(bodyParser.json());
   // router.use(bodyParser.urlencoded({
   //     extended: true
@@ -45,47 +45,71 @@ router.use(bodyParser.raw({
     var fileURL = file_dir + "/profile/" + filename;
     fs.writeFile(fileURL, binaryData, "binary", function (err) {
         if (err) {
-          console.log(err); // writes out file without error, but it's not a valid image  
+          logs.logError(err, req, res); // writes out file without error, but it's not a valid image  
         }else{
           // console.log("outside query");
           
       db.collection('Users').findOne({ "_id" : mongodb.ObjectId(uID)},{ DPPath : 1}, function (err, user){
-        var dpString = user.DPPath;
-        var dpName = dpString.substring(dpString.lastIndexOf('/'));
-        // console.log("dpName : ", dpName);
-        lwip.open(fileURL, function(err, image){
-          var imgWidth = 720;
-          var aspect = image.width() / imgWidth;    
-          image.batch()
-            .resize(image.width()/aspect,image.height()/aspect)
-            .writeFile(file_dir+'/profile_low/' + filename, function(err){                
-              console.log(err);                          
-            });
-        });
-        if(dpName === '/Profile-Icon.png')
-        {
-            // console.log('Normal Execution');
-           
-                db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPath : server_add+"/profile/"+filename, DPPathHigh : server_add+"/profile/"+filename, DPPathLow : server_add+"/profile_low/"+filename }},function (err, docs){
-                  res.send("Profile pic updated.");
-                });
-
-        }else{
-          // console.log('Special Case Execution');
-          fs.unlink(file_dir+'/profile'+dpName, function(err){
-              if (err) {
-                res.send("Something went wrong :(");
-              }else{
-                db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPathHigh : server_add+"/profile/"+filename, DPPath : server_add+"/profile/"+filename, DPPathLow : server_add+"/profile_low/"+filename }},function (err, docs){
-                  fs.unlink(file_dir+'/profile_low'+dpName, function (err){
-                    db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPathLow : server_add+"/profile_low/"+filename }},function (err, docs){
-                      res.send("Profile pic updated.");
-                    });
-                  })
-                });
-              }            
-          }); 
+        if(err){
+           logs.logError(err, req, res);
         }
+        if(user){
+          var dpString = user.DPPath;
+          var dpName = dpString.substring(dpString.lastIndexOf('/'));
+          // console.log("dpName : ", dpName);
+          lwip.open(fileURL, function(err, image){
+            if(err){
+               logs.logError(err, req, res);
+            }
+            if(image){
+              var imgWidth = 720;
+              var aspect = image.width() / imgWidth;    
+              image.batch()
+                .resize(image.width()/aspect,image.height()/aspect)
+                .writeFile(file_dir+'/profile_low/' + filename, function(err){                
+                  console.log(err);                          
+                });
+            }            
+          });
+          if(dpName === '/Profile-Icon.png')
+          {
+              // console.log('Normal Execution');
+              db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPath : server_add+"/profile/"+filename, DPPathHigh : server_add+"/profile/"+filename, DPPathLow : server_add+"/profile_low/"+filename }},function (err, docs){
+                if(err){
+                   logs.logError(err, req, res);
+                }
+                if(docs){
+                  res.send("Profile pic updated.");
+                }                    
+              });
+          }else{
+            // console.log('Special Case Execution');
+            fs.unlink(file_dir+'/profile'+dpName, function(err){
+                if (err) {
+                  res.send("Something went wrong :(");
+                }else{
+                  db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPathHigh : server_add+"/profile/"+filename, DPPath : server_add+"/profile/"+filename, DPPathLow : server_add+"/profile_low/"+filename }},function (err, docs){
+                    if(err){
+                       logs.logError(err, req, res);
+                    }
+                    if(docs){
+                      fs.unlink(file_dir+'/profile_low'+dpName, function (err){
+                        db.collection('Users').update({ _id : mongodb.ObjectId(uID)},{ $set : { DPPathLow : server_add+"/profile_low/"+filename }},function (err, docs){
+                          if(err){
+                             logs.logError(err, req, res);
+                          }
+                          if(docs){
+                            res.send("Profile pic updated.");  
+                          } 
+                        });
+                      })
+                    }                      
+                  });
+                }            
+            }); 
+          }
+        }
+          
       }); 
       }      
     });

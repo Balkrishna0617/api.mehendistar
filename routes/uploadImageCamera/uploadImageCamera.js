@@ -7,7 +7,7 @@ module.exports = function(app){
   var fs = require('fs');
   var lwip = require('lwip');                     // module for file compression
   var db = require('../../db_conn');              // Database Connection
-
+  var logs = require('../../logs/apiMehndiStar')();
   // router.use(bodyParser.json());
   // router.use(bodyParser.urlencoded({
   //     extended: true
@@ -56,36 +56,44 @@ router.use(bodyParser.raw({
     var fileURL = file_dir+"/uploads/" + filename;
       fs.writeFile(fileURL, binaryData, "binary", function (err) {
           if (err) {
-            console.log(err); // writes out file without error, but it's not a valid image  
+             logs.logError(err, req, res); // writes out file without error, but it's not a valid image  
           }else{
             // console.log("outside query");
             db.collection('Posts').insert({ "uid" : mongodb.ObjectId(uID), "description" : desc, "caption" : filename, "imagePath" : server_add+"/uploads/"+filename, "imagePathLow" : server_add+"/uploads_low/"+filename, "imagePathHigh" : server_add+"/uploads/"+filename, "tags" : tags, "cntLikes" : 0, "cntShares" : 0, "cntComments" : 0, "uploadDate" : new Date() }, function (err, docs){
                 tags = ""; 
                 if(err){
-                  console.log(err);
+                   logs.logError(err, req, res);
                 }
-                lwip.open(fileURL, function(err, image){
-                  var imgWidth = 1240;
-                  var aspect = image.width() / imgWidth;    
-                  image.batch()
-                    .resize(image.width()/aspect,image.height()/aspect)
-                    .writeFile(file_dir+'/uploads_low/' + filename, function(err){                
-                      // console.log(err);
-                      
-                      if(err !== null){
-                        console.log("inside error");
-                        fs.unlink(fileURL, function(err){
-                            if (err) {
-                              console.error(err);
-                            }         
-                        });  
-                      }        
-                      });
-                });
+                if(docs){
+                  lwip.open(fileURL, function(err, image){
+                    if(err){
+                       logs.logError(err, req, res);
+                    }
+                    if(image){
+                      var imgWidth = 1240;
+                      var aspect = image.width() / imgWidth;    
+                      image.batch()
+                      .resize(image.width()/aspect,image.height()/aspect)
+                      .writeFile(file_dir+'/uploads_low/' + filename, function(err){                
+                        // console.log(err);
+                        
+                        if(err !== null){
+                          console.log("inside error");
+                          fs.unlink(fileURL, function(err){
+                              if (err) {
+                                console.error(err);
+                              }         
+                          });  
+                        }        
+                        });
+                    }                      
+                  });
+                }
+                  
                 // console.log("inside query");   
             });
-            res.send("File uploaded.");
-                // console.log("File uploaded."); 
+            res.send("File uploaded."); 
+            // console.log("File uploaded."); 
           }
       });  
     
