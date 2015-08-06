@@ -192,7 +192,7 @@ var router = express.Router();
 var mongodb = require('mongodb'); 
 var bodyParser = require('body-parser');
 var multer  = require('multer');                // Module for file upload.
-var Imagemin = require('imagemin');
+//var Imagemin = require('imagemin');
 var fs = require('fs');
 var lwip = require('lwip');                     // module for file compression
 var db = require('../../../db_conn');              // Database Connection
@@ -231,7 +231,7 @@ onFileUploadStart: function (file) {;
 },  
 onFileUploadComplete: function (file) {
   lwip.open(file.path, function(err, image){
-    var imgWidth = 1240;
+    var imgWidth = 720;
     var aspect = image.width() / imgWidth;    
     image.batch()
       .resize(image.width()/aspect,image.height()/aspect)

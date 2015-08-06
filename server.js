@@ -3,10 +3,10 @@ var app = express();
 var bodyParser = require('body-parser');
 var logs = require('./logs/apiMehndiStar')();
 var config = require('./config/config.json');
-app.set('file_serving_dir',config.file_serving_dir_local);
-app.set('server_addr',config.server_addr_local);
-// app.set('file_serving_dir',config.file_serving_dir);
-// app.set('server_addr',config.server_addr);
+//app.set('file_serving_dir',config.file_serving_dir_local);
+//app.set('server_addr',config.server_addr_local);
+app.set('file_serving_dir',config.file_serving_dir);
+app.set('server_addr',config.server_addr);
 
 //----------------------------/v1 api imports --------------------------------------
 var home = require('./routes/home/index');

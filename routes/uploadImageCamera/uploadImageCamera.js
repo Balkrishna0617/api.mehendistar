@@ -70,7 +70,7 @@ router.use(bodyParser.raw({
                        logs.logError(err, req, res);
                     }
                     if(image){
-                      var imgWidth = 1240;
+                      var imgWidth = 720;
                       var aspect = image.width() / imgWidth;    
                       image.batch()
                       .resize(image.width()/aspect,image.height()/aspect)

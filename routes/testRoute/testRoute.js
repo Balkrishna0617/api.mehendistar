@@ -95,8 +95,9 @@ onFileUploadComplete: function (file) {
         var counter = 0;
           docs.forEach( function (doc){
             // result.push(doc.DPPath.replace("profile", "profile_high"));  
-                  var replacement = doc.DPPath.replace("profile", "profile_low")
-                  db.collection('Users').update({ _id : mongodb.ObjectId(doc._id)},{ $set : { DPPathLow : replacement }},function (err, docs){
+//                  var replacement = doc.DPPath.replace("profile", "profile_low")
+                 var replacement = doc.DPPath;
+			 db.collection('Users').update({ _id : mongodb.ObjectId(doc._id)},{ $set : { DPPathHigh : replacement }},function (err, docs){
                       counter++;                       
                       if(counter === docs.length){
                           // res.header("Content-Type:","application/json");
@@ -113,7 +114,8 @@ onFileUploadComplete: function (file) {
         var counter = 0;
           docs.forEach( function (doc){
             // result.push(doc.DPPath.replace("profile", "profile_high"));  
-                  var replacement = doc.imagePath.replace("uploads", "uploads_high")
+                  var replacement = doc.imagePath.replace("uploads", "uploads_low")
+		  var replacement = doc.imagePath;
                   db.collection('Posts').update({ _id : mongodb.ObjectId(doc._id)},{ $set : { imagePathHigh : replacement }},function (err, docs){
                       counter++;                       
                       if(counter === docs.length){
